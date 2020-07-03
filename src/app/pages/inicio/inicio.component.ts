@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PagesService } from '../pages.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  elementos: any [] = [];
+  titulo: string = '';
+
+  constructor( private _pagesService: PagesService,
+               private router: Router) {
+    this._pagesService.respuestas.subscribe( (valor) => {
+      this.elementos = valor.items;
+      this.titulo = valor.titulo
+    })
+  }
 
   ngOnInit(): void {
+
+    this._pagesService.obtenerNewReleses()
+  }
+
+  verArtista(idArtista) {
+    console.log("ID Artista: ",idArtista);
+    this.router.navigate(['detalle',idArtista])
   }
 
 }

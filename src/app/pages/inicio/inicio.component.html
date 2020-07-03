@@ -1,2 +1,13 @@
 
-<p>Release!</p>
+<div class="cont-cards">
+  <div class="cont-elementos text-center">
+    <h2> {{ titulo }} </h2>
+    <div class="row">
+      <div class="col-3" *ngFor="let item of elementos" (click)="verArtista(item.artistaId)">
+        <app-card [imagen]="item.img" [titulo]="item.title" [subtitulo]="item.subtitle" ></app-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <p>Release!</p> -->

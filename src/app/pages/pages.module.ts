@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { InicioComponent } from './inicio/inicio.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { ComponentsModule } from '../components/components.module'
-import { Routes, RouterModule } from '@angular/router';
+// import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { Routes, RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    HttpClientModule
   ]
 })
 export class PagesModule { }

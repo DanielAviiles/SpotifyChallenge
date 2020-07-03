@@ -1,1 +1,77 @@
-<p>detalle works!</p>
+
+<div class="row w-100" style="padding: 20px 40px;">
+  
+  <div class="col-4">
+    <div class="card m-2 float-left" style="background-color: transparent;">
+      <img [src]="artista.img" 
+        class="rounded float-left mx-auto d-block rounded-circle" 
+        style="width: 200px; height: 200px;">
+      <div class="card-body">
+        <h2 class="card-title text-center">{{artista.name}}</h2>
+        <p>
+          <b>Generos: </b>
+          {{artista.generos}}
+        </p>
+      </div>
+    </div>
+  
+    <div>
+      <h5><b>Similares a {{artista.name}} </b></h5>
+    </div>
+    <div class="card col" id="style-1" 
+    style="border: 1.5px solid #343a40;background-color: transparent;padding: 30px 15px;height: 173px;overflow-x: scroll;overflow-y: hidden;display: flex;flex-flow: inherit;">
+      <img  *ngFor="let image of artistasSimilares" [src]="image" 
+      class="rounded d-block rounded-circle" 
+      style="width: 100px; height: 100px; margin-right: 5px;">
+    </div>
+  </div>
+
+  <div class="col-8">
+    
+    <!-- <div class="row"> -->
+      <div>
+        <h5><b>Albums de {{artista.name}} </b></h5>
+      </div>
+      <div id="style-1" style="border: 1.5px solid #343a40;background-color: transparent;padding: 25px 15px;height: 315px;overflow-x: scroll;overflow-y: hidden;display: flex;flex-flow: inherit;">
+        <div class="card m-2 col-3" style="background-color: transparent;" *ngFor="let infoElement of albums">
+            <img [src]="infoElement.img" class="card-img-top" [alt]="titulo">
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: 0.8rem;">{{ infoElement.nombre }}</h5>
+              <p class="card-text" style="font-size: 0.8rem;">{{ infoElement.fecha | date:'yyyy' }}</p>
+            </div>
+          <!-- <app-card [imagen]="infoElement.img" [titulo]="infoElement.nombre" [subtitulo]="infoElement.fecha"></app-card> -->
+        </div>
+      </div>
+    <!-- </div> -->
+    <!-- <div *ngFor="let infoElement of albums" class="albmnes row">
+      <div class="card m-2" style="background-color: transparent;">
+        <img [src]="infoElement.img" class="card-img-top" [alt]="titulo">
+        <div class="card-body">
+          <h5 class="card-title">{{ infoElement.nombre }}</h5>
+          <p class="card-text">{{ infoElement.fecha }}</p>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="canciones-populares">
+      <div class="w-100 mb-2" style="font-size: 1.2em;">
+        Canciones más populares
+      </div>
+      <div class="itemss" id="style-1">
+        <div class="border-top-bottom" *ngFor="let cancion of popularTracks; let i = index">
+          <span class="d-flex justify-content-center align-items-center"> {{ i + 1 }} </span>
+          <div class="d-flex justify-content-center align-items-center">
+            <img [src]="cancion.img" style="width: 40px; height: 40px;">
+          </div>
+          <div style="display: flex;flex-flow: column wrap;align-items: flex-start;justify-content: flex-start;">
+            <div>{{ cancion.nameSong }}</div>
+            <div style="font-size: 0.8rem; color: #c0c0c0;">{{ cancion.albumName }}</div>
+          </div>
+          <span class="d-flex justify-content-center align-items-center"> {{ cancion.duracion | date:'mm:ss' }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
