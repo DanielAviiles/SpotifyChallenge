@@ -17,7 +17,6 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('ALGO: ',this.router.relativeLinkResolution)
     this.router.events.subscribe((evento: any) => {
       if ( evento.hasOwnProperty('url') ) {
         this.rutaActual = evento.url

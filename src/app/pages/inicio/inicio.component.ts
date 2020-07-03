@@ -21,8 +21,11 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this._pagesService.obtenerNewReleses()
+  }
+
+  ngOnDestroy(): void {
+    this._pagesService.respuestas.unsubscribe()
   }
 
   verArtista(idArtista) {
