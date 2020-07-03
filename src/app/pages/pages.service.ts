@@ -9,13 +9,12 @@ import { environment } from '../../environments/environment'
 export class PagesService {
   
   public respuestas = new BehaviorSubject<any>({ titulo: 'New releases', items: [] });
-  private headers = new HttpHeaders()
+  private headers = new HttpHeaders().append('Authorization', environment.tokenSpotify)
     
   constructor( private http: HttpClient ) { }
 
   obtenerNewReleses() {
-    const headers = this.headers.append('Authorization', environment.tokenSpotify)
-    this.http.get(`${ environment.api }/browse/new-releases`, { headers } )
+    this.http.get(`${ environment.api }/browse/new-releases`, { headers: this.headers } )
     .subscribe((respuesta: any) => {
       // console.log('Respuesta: ', respuesta)
       const elementos = respuesta.albums.items.map((item) => {
@@ -32,8 +31,7 @@ export class PagesService {
   }
 
   buscarArtistas(textoBuscar) {
-    const headers = this.headers.append('Authorization', environment.tokenSpotify)
-    this.http.get(`${ environment.api }/search?q=${textoBuscar}&type=artist`, { headers } )
+    this.http.get(`${ environment.api }/search?q=${textoBuscar}&type=artist`, { headers: this.headers } )
     .subscribe((response: any) => {
       // console.log('Respuesta: ', respuesta);
       const elementos = response.artists.items.map((item) => {
@@ -51,8 +49,7 @@ export class PagesService {
   }
 
   buscarCanciones(textoBuscar) {
-    const headers = this.headers.append('Authorization', environment.tokenSpotify)
-    this.http.get(`${ environment.api }/search?q=${textoBuscar}&type=track`, { headers })
+    this.http.get(`${ environment.api }/search?q=${textoBuscar}&type=track`, { headers: this.headers })
     .subscribe((response: any) => {
       // console.log('Canciones: ', response);
 
@@ -70,25 +67,21 @@ export class PagesService {
   }
 
   infoArtista(idArtist): Observable<any> {
-    const headers = this.headers.append('Authorization', environment.tokenSpotify)
-    return this.http.get(`${ environment.api }/artists/${idArtist}`, { headers });
+    return this.http.get(`${ environment.api }/artists/${idArtist}`, { headers: this.headers });
   }
 
   artistRelated(idArtist): Observable<any> {
-    const headers = this.headers.append('Authorization', environment.tokenSpotify)
     return this.http.get(
-      `${ environment.api }/artists/${idArtist}/related-artists`, { headers }
+      `${ environment.api }/artists/${idArtist}/related-artists`, { headers: this.headers }
     );
   }
 
   albumsArtist(idArtist): Observable<any> {
-    const headers = this.headers.append('Authorization', environment.tokenSpotify)
-    return this.http.get(`${ environment.api }/artists/${idArtist}/albums`, { headers });
+    return this.http.get(`${ environment.api }/artists/${idArtist}/albums`, { headers: this.headers });
   }
 
   topTracks(idArtist): Observable<any> {
-    const headers = this.headers.append('Authorization', environment.tokenSpotify)
-    return this.http.get(`${ environment.api }/artists/${idArtist}/top-tracks?country=ES`, { headers })
+    return this.http.get(`${ environment.api }/artists/${idArtist}/top-tracks?country=ES`, { headers: this.headers })
   }
   
 }
