@@ -26,7 +26,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._pagesService.respuestas.unsubscribe();
+    // this._pagesService.respuestas.unsubscribe();
   }
 
   verArtista(idArtista) {
