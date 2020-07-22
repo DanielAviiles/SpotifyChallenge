@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   api: 'https://api.spotify.com/v1',
   apiToken: 'https://accounts.spotify.com/api/token',
-  client_id: 'd0d0bab748874933b44adde7aebb68f3',
-  client_secret: 'bf042ae585d74a329e478e18217db0fe',
+  client_id: 'API Spotify',
+  client_secret: 'API Spotify',
   grant_type: 'client_credentials'
 };
 
