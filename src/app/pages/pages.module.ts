@@ -4,11 +4,13 @@ import { InicioComponent } from './inicio/inicio.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { ComponentsModule } from '../components/components.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LogueoComponent } from './logueo/logueo.component';
 
 @NgModule({
   declarations: [
     InicioComponent,
-    DetalleComponent
+    DetalleComponent,
+    LogueoComponent
   ],
   imports: [
     CommonModule,

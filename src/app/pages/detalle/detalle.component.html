@@ -1,10 +1,10 @@
 
 <div class="row w-100" style="padding: 20px 40px;">
-  
+
   <div class="col-4">
     <div class="card m-2 float-left" style="background-color: transparent;">
-      <img [src]="artista.img" 
-        class="rounded float-left mx-auto d-block rounded-circle" 
+      <img [src]="artista.img"
+        class="rounded float-left mx-auto d-block rounded-circle"
         style="width: 200px; height: 200px;">
       <div class="card-body">
         <h2 class="card-title text-center">{{artista.name}}</h2>
@@ -14,27 +14,27 @@
         </p>
       </div>
     </div>
-  
+
     <div>
       <h5><b>Similares a {{artista.name}} </b></h5>
     </div>
-    <div class="card col" id="style-1" 
+    <div class="card col" id="style-1"
     style="border: 1.5px solid #343a40;background-color: transparent;padding: 30px 15px;height: 173px;overflow-x: scroll;overflow-y: hidden;display: flex;flex-flow: inherit;">
-      <img  *ngFor="let image of artistasSimilares" [src]="image" 
-      class="rounded d-block rounded-circle" 
+      <img  *ngFor="let image of artistasSimilares" [src]="image"
+      class="rounded d-block rounded-circle"
       style="width: 100px; height: 100px; margin-right: 5px;">
     </div>
   </div>
 
   <div class="col-8">
-    
+
     <!-- <div class="row"> -->
       <div>
         <h5><b>Albums de {{artista.name}} </b></h5>
       </div>
       <div id="style-1" style="border: 1.5px solid #343a40;background-color: transparent;padding: 25px 15px;height: 315px;overflow-x: scroll;overflow-y: hidden;display: flex;flex-flow: inherit;">
         <div class="card m-2 col-3" style="background-color: transparent;" *ngFor="let infoElement of albums">
-            <img [src]="infoElement.img" class="card-img-top" [alt]="titulo">
+            <img [src]="infoElement.img" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title" style="font-size: 0.8rem;">{{ infoElement.nombre }}</h5>
               <p class="card-text" style="font-size: 0.8rem;">{{ infoElement.fecha | date:'yyyy' }}</p>

@@ -8,23 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    
-  rutaActual = '/'
+
+  rutaActual = '/';
 
   constructor(private _pagesService: PagesService,
-              private router: Router) { 
-
-  }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.router.events.subscribe((evento: any) => {
-      if ( evento.hasOwnProperty('url') ) {
-        this.rutaActual = evento.url
+      if (evento.hasOwnProperty('url')) {
+        this.rutaActual = evento.url;
       }
-    })
+    });
   }
 
-  buscarArtista(event){
+  buscarArtista(event): void{
     if ( this.rutaActual.length === 1 || this.rutaActual.length === 5 ) {
       if (event.target.value.length) {
         this._pagesService.buscarArtistas(event.target.value);
@@ -32,11 +30,11 @@ export class NavbarComponent implements OnInit {
         this._pagesService.obtenerNewReleses();
       }
     } else {
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
     }
   }
 
-  buscarCancion(event){
+  buscarCancion(event): void{
     if ( this.rutaActual.length === 1 || this.rutaActual.length === 5 ) {
       if (event.target.value.length){
         this._pagesService.buscarCanciones(event.target.value);
@@ -44,7 +42,7 @@ export class NavbarComponent implements OnInit {
         this._pagesService.obtenerNewReleses();
       }
     } else {
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
     }
   }
 

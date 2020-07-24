@@ -12,16 +12,24 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   elementos: any [] = [];
   titulo = '';
+  error: boolean;
 
-  constructor( private _pagesService: PagesService,
-               private router: Router) {
+  constructor( private _pagesService: PagesService, private router: Router) {
     this._pagesService.respuestas.subscribe( (valor) => {
       this.elementos = valor.items;
       this.titulo = valor.titulo;
+
+      if (this.titulo === 'Error') {
+        console.log('Data recibida: ', this.elementos);
+        this.error = true;
+      } else {
+        this.error = false;
+      }
     });
   }
 
   ngOnInit(): void {
+    // this.error = false;
     this._pagesService.obtenerNewReleses();
   }
 

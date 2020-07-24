@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,48 +9,38 @@ import { map } from 'rxjs/operators';
 export class PagesService {
 
   public respuestas = new BehaviorSubject<any>({ titulo: 'New releases', items: [] });
-  private headers = new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
   constructor(private http: HttpClient) {
-    this.obtenerToken();
+    this.updateToken();
   }
 
-  obtenerToken(): void {
-    const body = new HttpParams()
-      .set('grant_type', environment.grant_type)
-      .set('client_id', environment.client_id)
-      .set('client_secret', environment.client_secret);
-    // const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+  obtenerToken() {
+    return localStorage.getItem('token');
+  }
 
-    /* return this.http.post(environment.apiToken, body.toString()).pipe( map( (response: any) => {
-      return {
-        token: response.access_token,
-        tipoToken: response.token_type,
-        tiempo: response.expires_in
-      };
-      return response.access_token;
-    })
-    ); */
-
-    this.http.post(environment.apiToken, body.toString(), /* {headers: headerss} */)
-      .subscribe((response: any) => {
-        return localStorage.setItem('token', response.access_token);
+  updateToken(): void {
+    this.http.post(environment.apiToken, null).subscribe((response: any) => {
+      localStorage.setItem('token', response.access_token);
     });
   }
 
-  obtenerNewReleses() {
+  obtenerNewReleses(): void {
     this.http.get(`${ environment.api }/browse/new-releases`)
     .subscribe((respuesta: any) => {
       const elementos = respuesta.albums.items.map((item) => {
         return {
           id: item.id,
           artistaId: item.artists[0].id,
-          img: item.images.length ? item.images[0].url : 'https://marketing4ecommerce.net/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png',
+          img: item.images.length ? item.images[0].url : environment.imgURL,
           title: item.name,
           subtitle: item.release_date
-        }
+        };
       });
       this.respuestas.next({ titulo: 'New releases', items: elementos });
+    }, (err: any) => {
+        const elementos = [err.error.error.message, err.error.error.status];
+        // console.log('Data Error: ', elementos);
+        this.respuestas.next({ titulo: 'Error', items: elementos });
     });
   }
 
@@ -62,7 +51,7 @@ export class PagesService {
         return {
           id: item.id,
           artistaId: item.id,
-          img: item.images.length ? item.images[0].url : 'https://marketing4ecommerce.net/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png',
+          img: item.images.length ? item.images[0].url : environment.imgURL,
           title: item.name,
           subtitle: item.popularity
         };
@@ -79,7 +68,7 @@ export class PagesService {
         return {
           id: item.id,
           artistaId: item.artists[0].id,
-          img: item.album.images.length ? item.album.images[0].url : 'https://marketing4ecommerce.net/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png',
+          img: item.album.images.length ? item.album.images[0].url : environment.imgURL,
           title: item.name,
           subtitle: item.artists[0].name
         };
